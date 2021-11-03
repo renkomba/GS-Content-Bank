@@ -15,25 +15,22 @@ function levelQuestions() {
   let level = add.getRange('I7').getValue();
   let questionSet = '🥰';  // possible feature: generate random emoji
   let intermediate = questions.intermediate;
-  if (level == 1) {
-    questionSet = intermediate.concat(questions.novice);
-  } else if (level <= 3) {
-    questionSet = intermediate.concat(questions.advanced);
-  } else if (level == 4) {
-    questionSet = questions.advanced;
-  }
-  console.log('LEVELLED QUESTIONS: ', questionSet);
+  
+  if (level == 1) questionSet = intermediate.concat(questions.novice);
+  if (level <= 3) questionSet = intermediate.concat(questions.advanced);
+  if (level == 4) questionSet = questions.advanced;
+//   console.log('LEVELLED QUESTIONS: ', questionSet);
+  
   return questionSet;
 }
 
 // Generate an object of all possible questions
 function findQuestions() {
   let listenAns = '[INTERMEDIATE] You are [context]. Listen to the question that' +
-    ' [person] is asking you; what is the appropriate response? ' +
-      'correct_, , , ; ';
+    ' [person] is asking you; what is the appropriate response? ' + 'correct_, , , ; ';
   let listenTrans = '[INTERMEDIATE] You are [context]. Listen to the question' +
-    ' that [person] is asking you; what does it mean in English?' +
-      'correct_, , , ; ';
+    ' that [person] is asking you; what does it mean in English?' + 'correct_, , , ; ';
+  
   let listenAdv = ['[ADVANCED] What is the message/moral/lesson of the clip? (); ',
                    '[ADVANCED] Who is the intended audience? (); ',
                    '[ADVANCED] Why did ? (); ',
@@ -76,20 +73,17 @@ function findQuestions() {
                  '[NOVICE] What ? correct_, , , ; ', '[NOVICE] Where ? correct_, , , ; ',
                  '[NOVICE] When ? correct_, , , ; ', '[NOVICE] Who ? correct_, , , ; ',
                  '[NOVICE] What type of text is this? correct_, , , ; '];
-  
-  let listening = {advanced: listenAdv, intermediate: listenInt,
-                   novice: listenNov};
-  let reading = {advanced: readAdv, intermediate: readInt,
-                 novice: readNov};
   let listeningTexts = ['Script', 'Recording'];
-  let contentType = add.getRange('C7').getValue();
   
+  let listening = {advanced: listenAdv, intermediate: listenInt, novice: listenNov};
+  let reading = {advanced: readAdv, intermediate: readInt, novice: readNov};
+  
+  let contentType = add.getRange('C7').getValue();
   let questionSet = {};
-  if (contentType == 'Text') {
-    questionSet = reading;
-  } else if (listeningTexts.includes(contentType)) {
-    questionSet = listening;
-  }
-  console.log('QUESTIONS SET: ', questionSet);
+  
+  if (contentType == 'Text') questionSet = reading;
+  if (listeningTexts.includes(contentType)) questionSet = listening;
+  
+//   console.log('QUESTIONS SET: ', questionSet);
   return questionSet;
 }
