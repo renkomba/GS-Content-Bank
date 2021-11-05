@@ -84,7 +84,8 @@ function findColour() {
   let colours = [pink, purple, blue, teal, green, yellow, orange, red, grey];
   let colourString = add.getRange('A30').getValue();
   
-  for (let colour of colours) {
-    if (colour.name == colourString) return colour;
+  return colours.filter( colour => colour.name === colourString )[0];
+//   for (let colour of colours) {
+//     if (colour.name == colourString) return colour;
   }
 }
